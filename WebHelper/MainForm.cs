@@ -16,13 +16,11 @@ namespace WebHelper
             if (!Clipboard.ContainsText()) return;
             textBoxURI.Text = Clipboard.GetText();
         }
-
         private void buttonHeaders_Click(object sender, EventArgs e)
         {
             if (!Clipboard.ContainsText()) return;
             textBoxHeaders.Text = Clipboard.GetText();
         }
-
         private void buttonGetFunction_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(textBoxURI.Text)) return;
@@ -46,7 +44,8 @@ namespace WebHelper
                 result.Append($"data.Headers.Add(\"{item}\");\n");
             }
             if (!string.IsNullOrEmpty(acLanguage)) result.Append($"_client.AcceptLanguage = \"{acLanguage}\";\n");
-            if(!string.IsNullOrEmpty(userAgent)) result.Append($"_client.UserAgent = \"{userAgent}\";\n");
+            if(!string.IsNullOrEmpty(userAgent)) result.Append($"_client.UserAgent = \"{userAgent}\";\n\n");
+            result.Append("try\n{\nreturn _client.SendRequest(data);\n}\ncatch(Exception ex)\n{\nthrow;\n}\n");
             result.Append("}");
             Clipboard.Clear();
             Clipboard.SetText(result.ToString());
