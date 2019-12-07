@@ -41,6 +41,7 @@ namespace WebHelper
                 if (item.Contains("Accept-Encoding")) continue;
                 if (item.Contains("Accept-Language")){ acLanguage = item.Split(' ')[1]; continue; }
                 if (item.Contains("User-Agent")) { userAgent = item.Split(' ')[1]; continue; }
+                if (item.Contains("Cookie")) { userAgent = item.Split(' ')[1]; continue; }
                 result.Append($"data.Headers.Add(\"{item}\");\n");
             }
             if (!string.IsNullOrEmpty(acLanguage)) result.Append($"_client.AcceptLanguage = \"{acLanguage}\";\n");
